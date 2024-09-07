@@ -12,3 +12,8 @@
   - 확장 가능한 기본 스타일 적용
   - 댓글 기능
   - 쉽게 이해가능한 클린 코드와 간결한 동작
+- 적용 기술
+  - 프레임워크 : React CRA
+  - Mocking : Jsonplaceholder
+  - 스타일 : CSS
+    - 페이지네이션 : item-pagination
