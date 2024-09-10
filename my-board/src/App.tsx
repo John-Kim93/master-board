@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Layout from "./layout";
 import Board from "./board/board";
 
@@ -9,7 +14,8 @@ const App: React.FC = () => {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/board" element={<Board />} />
+          <Route path="" element={<Navigate to={"/board"} />} />
+          <Route path="board" element={<Board />} />
         </Routes>
       </Layout>
     </Router>
