@@ -39,24 +39,17 @@
   background-color: #0056b3;
 }
 
-.col-id {
-  width: 100px;
-}
-
-.col-title {
-  width: 200px;
-}
-
-.col-created-date {
-  width: 150px;
-}
-.col-creator {
-  width: 150px;
-}
-
 .table-container {
 }
 .table-header {
+  text-align: left;
+  background-color: #f8f9fa;
+  padding: 12px;
+}
+.table-header-center {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 12px;
 }
 .table-cell {
 }
