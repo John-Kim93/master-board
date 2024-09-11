@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 interface IRows {
   id: number;
   title: string;
@@ -6,37 +9,56 @@ interface IRows {
 }
 
 interface IColumns {
+  id: string;
   name: string;
   isCenter?: boolean;
+  isRowCenter?: boolean;
+  fixedWidth?: string;
 }
 
 export default function Table() {
+  const [rows, setRows] = useState<IRows[]>([]);
+
+  useEffect(() => {
+    const getRows = async () => {
+      try {
+        const response = await axios.get(
+          "https://my-json-server.typicode.com/John-Kim93/master-board/posts"
+        );
+        setRows(response.data);
+      } catch (error) {
+        throw error;
+      }
+    };
+
+    getRows();
+  }, []);
+
   const columns: IColumns[] = [
-    { name: "글 번호", isCenter: true },
-    { name: "제목", isCenter: true },
-    { name: "작성일", isCenter: true },
-    { name: "작성자", isCenter: true },
-  ];
-  const rows: IRows[] = [
     {
-      id: 0,
-      title: "제목1",
-      createdDate: "2022.09.09 11:22:33",
-      writer: "김종현",
+      id: "id",
+      name: "글 번호",
+      isCenter: true,
+      isRowCenter: true,
+      fixedWidth: "80px",
+    },
+    { id: "title", name: "제목", isCenter: true },
+    {
+      id: "createdDate",
+      name: "작성일",
+      isCenter: true,
+      isRowCenter: true,
+      fixedWidth: "425px",
     },
     {
-      id: 0,
-      title: "제목2",
-      createdDate: "2022.09.09 11:22:33",
-      writer: "김종현",
-    },
-    {
-      id: 0,
-      title: "제목3",
-      createdDate: "2022.09.09 11:22:33",
-      writer: "김종현",
+      id: "writer",
+      name: "작성자",
+      isCenter: true,
+      isRowCenter: true,
+      fixedWidth: "225px",
     },
   ];
+
   return (
     <table
       style={{ width: "100%", margin: "0 auto", borderCollapse: "collapse" }}
@@ -45,29 +67,37 @@ export default function Table() {
         <tr>
           {columns.map((column) =>
             column.isCenter ? (
-              <th className="table-header-center">{column.name}</th>
+              <th
+                key={column.id}
+                className="table-header-center"
+                style={{ width: `${column.fixedWidth}` }}
+              >
+                {column.name}
+              </th>
             ) : (
-              <th className="table-header">{column.name}</th>
+              <th key={column.id} className="table-header">
+                {column.name}
+              </th>
             )
           )}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td style={{ padding: "12px" }}>John Doe</td>
-          <td style={{ padding: "12px" }}>john@example.com</td>
-          <td style={{ padding: "12px" }}>Admin</td>
-        </tr>
-        <tr>
-          <td style={{ padding: "12px" }}>Jane Smith</td>
-          <td style={{ padding: "12px" }}>jane@example.com</td>
-          <td style={{ padding: "12px" }}>User</td>
-        </tr>
-        <tr>
-          <td style={{ padding: "12px" }}>Robert Brown</td>
-          <td style={{ padding: "12px" }}>robert@example.com</td>
-          <td style={{ padding: "12px" }}>Editor</td>
-        </tr>
+        {rows.map((row) => (
+          <tr key={row.id}>
+            {columns.map((column) =>
+              column.isRowCenter ? (
+                <td key={column.id} className="table-row-center">
+                  {row[column.id]}
+                </td>
+              ) : (
+                <td key={column.id} className="table-row">
+                  {row[column.id]}
+                </td>
+              )
+            )}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

@@ -5,8 +5,10 @@ import Table from "./table";
 export default function Board() {
   return (
     <div className="board-main-container">
-      <SearchBar />
-      <Table />
+      <div style={{ width: "80%" }}>
+        <SearchBar />
+        <Table />
+      </div>
     </div>
   );
 }
