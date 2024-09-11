@@ -18,6 +18,7 @@ interface IColumns {
 
 export default function Table() {
   const [rows, setRows] = useState<IRows[]>([]);
+  const [columns, setColumns] = useState<IColumns[]>([]);
 
   useEffect(() => {
     const getRows = async () => {
@@ -26,6 +27,7 @@ export default function Table() {
           "https://raw.githubusercontent.com/John-Kim93/master-board/main/main/db.json"
         );
         setRows(response.data.posts);
+        setColumns(response.data.columns);
       } catch (error) {
         throw error;
       }
@@ -33,31 +35,6 @@ export default function Table() {
 
     getRows();
   }, []);
-
-  const columns: IColumns[] = [
-    {
-      id: "id",
-      name: "글 번호",
-      isCenter: true,
-      isRowCenter: true,
-      fixedWidth: "80px",
-    },
-    { id: "title", name: "제목", isCenter: true },
-    {
-      id: "createdDate",
-      name: "작성일",
-      isCenter: true,
-      isRowCenter: true,
-      fixedWidth: "300px",
-    },
-    {
-      id: "writer",
-      name: "작성자",
-      isCenter: true,
-      isRowCenter: true,
-      fixedWidth: "120px",
-    },
-  ];
 
   return (
     <table

@@ -36,5 +36,29 @@
       "createdDate": "2022.09.09 11:22:33",
       "writer": "김종현6"
     }
+  ],
+  "columns": [
+    {
+      "id": "id",
+      "name": "글 번호",
+      "isCenter": true,
+      "isRowCenter": true,
+      "fixedWidth": "80px"
+    },
+    { "id": "title", "name": "제목", "isCenter": true },
+    {
+      "id": "createdDate",
+      "name": "작성일",
+      "isCenter": true,
+      "isRowCenter": true,
+      "fixedWidth": "300px"
+    },
+    {
+      "id": "writer",
+      "name": "작성자",
+      "isCenter": true,
+      "isRowCenter": true,
+      "fixedWidth": "120px"
+    }
   ]
 }
