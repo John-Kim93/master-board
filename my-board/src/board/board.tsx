@@ -4,7 +4,7 @@ import Table from "./table";
 
 export default function Board() {
   return (
-    <div className="board-main-container">
+    <div className="board-main-container main-container">
       <div style={{ width: "100%" }}>
         <SearchBar />
         <Table />

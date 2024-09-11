@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface IRows {
+export interface IRows {
   id: number;
   title: string;
   createdDate: string;
@@ -17,6 +18,7 @@ interface IColumns {
 }
 
 export default function Table() {
+  const navigate = useNavigate();
   const [rows, setRows] = useState<IRows[]>([]);
   const [columns, setColumns] = useState<IColumns[]>([]);
 
@@ -61,7 +63,12 @@ export default function Table() {
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr key={row.id}>
+          <tr
+            key={row.id}
+            onClick={() => {
+              navigate(`/board/${row.id}`);
+            }}
+          >
             {columns.map((column) =>
               column.isRowCenter ? (
                 <td key={column.id} className="table-row-center">

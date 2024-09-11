@@ -1,10 +1,13 @@
-.board-main-container {
+.main-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   border-radius: 5px;
   background-color: #fff;
+}
+
+.board-main-container {
+  height: calc(100% - 125px);
   width: calc(100% - 75px);
-  height: calc(100% - 75px);
   padding: 20px 25px;
 }
 
@@ -41,8 +44,6 @@
   background-color: #0056b3;
 }
 
-.table-container {
-}
 .table-header {
   text-align: left;
   background-color: #f8f9fa;
@@ -57,23 +58,52 @@
   border-top: 1px solid #00000050;
   border-bottom: 1px solid #00000050;
 }
-.table-cell {
-}
-.table-body {
-}
-.no-data-container {
-}
 .table-row {
   text-align: left;
   padding: 12px;
   border-top: 1px solid #00000050;
   border-bottom: 1px solid #00000050;
+  cursor: pointer;
 }
 .table-row-center {
   text-align: center;
   padding: 12px;
   border-top: 1px solid #00000050;
   border-bottom: 1px solid #00000050;
+  cursor: pointer;
 }
-.table-cell {
+
+.article-main-container {
+  height: calc(100% - 175px);
+  width: calc(100% - 115px);
+  padding: 45px 45px;
+}
+.article-title {
+  display: flex;
+  width: 100%;
+  font-size: 48px;
+  font-weight: 600;
+  margin: 24px 0;
+}
+.article-writer {
+  display: flex;
+  width: 100%;
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.article-createdDate {
+  display: flex;
+  width: 100%;
+  font-size: 25px;
+  font-weight: 400;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #00000050;
+}
+.article-content {
+  display: flex;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 16px;
 }
