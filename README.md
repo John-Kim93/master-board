@@ -16,6 +16,7 @@
   - 쉽게 이해가능한 클린 코드와 간결한 동작
 - 적용 기술
   - 프레임워크 : React CRA
-  - Mocking : Jsonplaceholder
+  - Mocking : Git Repo
   - 스타일 : CSS
   - 주요 라이브러리 : react-table
+- Git의 Raw 데이터 조회 기능을 활용하여 fake fetch 기능 구현

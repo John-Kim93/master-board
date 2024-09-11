@@ -23,9 +23,9 @@ export default function Table() {
     const getRows = async () => {
       try {
         const response = await axios.get(
-          "https://my-json-server.typicode.com/John-Kim93/master-board/posts"
+          "https://raw.githubusercontent.com/John-Kim93/master-board/main/main/db.json"
         );
-        setRows(response.data);
+        setRows(response.data.posts);
       } catch (error) {
         throw error;
       }
@@ -48,14 +48,14 @@ export default function Table() {
       name: "작성일",
       isCenter: true,
       isRowCenter: true,
-      fixedWidth: "425px",
+      fixedWidth: "300px",
     },
     {
       id: "writer",
       name: "작성자",
       isCenter: true,
       isRowCenter: true,
-      fixedWidth: "225px",
+      fixedWidth: "120px",
     },
   ];
 
