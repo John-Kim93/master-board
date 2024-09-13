@@ -9,7 +9,7 @@ export interface IRows {
   writer: string;
 }
 
-interface IColumns {
+export interface IColumns {
   id: string;
   name: string;
   isCenter?: boolean;
@@ -17,26 +17,14 @@ interface IColumns {
   fixedWidth?: string;
 }
 
-export default function Table() {
+export default function Table({
+  rows,
+  columns,
+}: {
+  rows: IRows[];
+  columns: IColumns[];
+}) {
   const navigate = useNavigate();
-  const [rows, setRows] = useState<IRows[]>([]);
-  const [columns, setColumns] = useState<IColumns[]>([]);
-
-  useEffect(() => {
-    const getRows = async () => {
-      try {
-        const response = await axios.get(
-          "https://raw.githubusercontent.com/John-Kim93/master-board/main/main/db.json"
-        );
-        setRows(response.data.posts);
-        setColumns(response.data.columns);
-      } catch (error) {
-        throw error;
-      }
-    };
-
-    getRows();
-  }, []);
 
   return (
     <table

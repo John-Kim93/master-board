@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./index.css";
 import MyButton from "../components/button";
 
-const SearchBar: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Option 1");
+export type tSearchOptions = "id" | "title" | "content" | "writer";
 
-  const handleSearch = () => {
-    alert(`"${selectedOption}"에서 "${searchTerm}" 찾기`);
-  };
+const SearchBar = ({
+  handleSearch,
+}: {
+  handleSearch: (type: tSearchOptions, search: string) => void;
+}) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<tSearchOptions>("title");
 
   return (
     <div className="search-bar-container">
       <select
         className="search-bar-select"
         value={selectedOption}
-        onChange={(e) => setSelectedOption(e.target.value)}
+        onChange={(e) => setSelectedOption(e.target.value as tSearchOptions)}
       >
-        <option value="제목">제목</option>
-        <option value="내용">내용</option>
-        <option value="작성자">작성자</option>
+        <option value="title">제목</option>
+        <option value="id">글 번호</option>
+        <option value="content">내용</option>
+        <option value="writer">작성자</option>
       </select>
       <input
         className="search-bar-input"
@@ -33,7 +36,7 @@ const SearchBar: React.FC = () => {
         bgHover="#1976d2"
         text="검색"
         size="sm"
-        onClick={handleSearch}
+        onClick={() => handleSearch(selectedOption, searchTerm)}
       />
     </div>
   );
