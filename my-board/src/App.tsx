@@ -9,6 +9,7 @@ import {
 import Layout from "./layout";
 import Board from "./board/board";
 import Article from "./board/article";
+import CreateArticles from "./board/control/create-articles";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="" element={<Navigate to={"/board"} />} />
           <Route path="board" element={<Board />} />
           <Route path="board/:id" element={<Article />} />
+          <Route path="board/create" element={<CreateArticles />} />
         </Routes>
       </Layout>
     </Router>

@@ -11,6 +11,11 @@
   padding: 20px 25px;
 }
 
+.search-bar-main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search-bar-container {
   display: flex;
   align-items: center;
