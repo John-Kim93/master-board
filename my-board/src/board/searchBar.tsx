@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
+import MyButton from "../components/button";
 
 const SearchBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,9 +28,13 @@ const SearchBar: React.FC = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="검색할 단어를 입력하세요."
       />
-      <button className="search-bar-button" onClick={handleSearch}>
-        검색
-      </button>
+      <MyButton
+        bgColor="#2196f3"
+        bgHover="#1976d2"
+        text="검색"
+        size="sm"
+        onClick={handleSearch}
+      />
     </div>
   );
 };
