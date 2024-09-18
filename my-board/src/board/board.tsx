@@ -9,14 +9,15 @@ export default function Board() {
   const [columns, setColumns] = useState<IColumns[]>([]);
 
   useEffect(() => {
-    const getRows = async () => {
+    const initTable = async () => {
       try {
         const response = await axios.get(
           "https://raw.githubusercontent.com/John-Kim93/master-board/main/main/db.json"
         );
-        setColumns(response.data.columns);
-        const orgArticles = localStorage.getItem("articles");
 
+        setColumns(response.data.columns);
+
+        const orgArticles = localStorage.getItem("articles");
         if (orgArticles === null) {
           localStorage.setItem("articles", JSON.stringify(response.data.posts));
           setRows(response.data.posts);
@@ -28,7 +29,7 @@ export default function Board() {
       }
     };
 
-    getRows();
+    initTable();
   }, []);
 
   const searchArticles = (type: tSearchOptions, search: string) => {

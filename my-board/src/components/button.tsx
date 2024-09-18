@@ -6,10 +6,11 @@ interface Props {
   bgHover: string;
   text: string;
   size: "sm" | "md" | "lg";
+  disabled?: boolean;
   onClick?: () => any;
 }
 export default function MyButton(props: Props) {
-  const { bgColor, text, bgHover, size, onClick } = props;
+  const { bgColor, text, bgHover, size, disabled, onClick } = props;
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [width, setWidth] = useState<string>();
   const [padding, setPadding] = useState<string>();
@@ -34,13 +35,14 @@ export default function MyButton(props: Props) {
     <button
       className="custom-button"
       style={{
-        backgroundColor: `${isHovered ? bgHover : bgColor}`,
+        backgroundColor: `${disabled ? "#ccc" : isHovered ? bgHover : bgColor}`,
         width,
         padding,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>

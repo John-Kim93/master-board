@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IRows } from "./table";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MyButton from "../components/button";
 
 interface IArticle extends IRows {
@@ -9,6 +8,9 @@ interface IArticle extends IRows {
 }
 
 export default function Article() {
+  const navigate = useNavigate();
+
+  const [articles, setArticles] = useState<IArticle[]>([]);
   const [article, setArticle] = useState<IArticle>({
     id: 0,
     title: "",
@@ -20,30 +22,53 @@ export default function Article() {
 
   useEffect(() => {
     const getArticle = async () => {
-      try {
-        const response = await axios.get(
-          `https://raw.githubusercontent.com/John-Kim93/master-board/main/main/db.json`
-        );
+      const articles = localStorage.getItem("articles");
+      if (articles === null) {
+        return <div>데이터 없음;</div>;
+      } else {
+        const parsedArticles = JSON.parse(articles);
+        setArticles(parsedArticles);
         setArticle(() =>
-          response.data.posts.find((post: IArticle) => post.id === Number(id))
+          parsedArticles.find((article: IArticle) => article.id === Number(id))
         );
-      } catch (error) {
-        throw error;
       }
     };
 
     getArticle();
   }, [id]);
+
+  const handleDelete = () => {
+    const newArticles = articles.filter((article) => article.id !== Number(id));
+    localStorage.setItem("articles", JSON.stringify(newArticles));
+    navigate("/board");
+  };
+
   return (
-    <div className="article-main-container main-container">
-      <div className="article-title">{article.title}</div>
+    <div className="article-main main-container">
+      <div className="article-title" style={{ borderBottom: "none" }}>
+        {article.title}
+      </div>
       <div className="article-writer">{article.writer}</div>
       <div className="article-space-between">
         <div className="article-createdDate">{article.createdDate}</div>
         <div className="article-button-area">
-          <MyButton bgColor="#2196f3" text="추가" bgHover="#1976d2" size="sm" />
+          <MyButton
+            bgColor="#4caf50"
+            text="수정"
+            bgHover="#45a049"
+            size="sm"
+            onClick={() => {
+              navigate(`/board/update/${id}`);
+            }}
+          />
           <div style={{ width: "10px" }} />
-          <MyButton bgColor="#4caf50" text="수정" bgHover="#45a049" size="sm" />
+          <MyButton
+            bgColor="#ff6b6b"
+            text="삭제"
+            bgHover="#e74c3c"
+            size="sm"
+            onClick={handleDelete}
+          />
         </div>
       </div>
       <div className="article-content">{article.content}</div>

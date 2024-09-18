@@ -1,31 +1,47 @@
-import dayjs from "dayjs";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import MyButton from "../../components/button";
 
-export default function CreateArticles() {
+export default function UpdateArticles() {
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const TITLE = "게시글 작성";
+  const TITLE = "게시글 수정";
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+
+  useEffect(() => {
+    const initForm = () => {
+      const articles = localStorage.getItem("articles");
+      if (articles === null) return;
+      const article = JSON.parse(articles).find(
+        (article) => article.id === Number(id)
+      );
+      setTitle(article.title);
+      setContent(article.content);
+    };
+
+    initForm();
+  }, [id]);
 
   const handleSubmit = () => {
     const articles = localStorage.getItem("articles");
     if (articles === null) return;
     const parsedArticles = JSON.parse(articles);
-    const curId = parsedArticles[parsedArticles.length - 1].id + 1;
-    const reqData = {
-      id: curId,
-      title,
-      createdDate: dayjs().format("YYYY.MM.DD HH:mm:ss"),
-      writer: "테스트 유저",
-      content,
-    };
-    parsedArticles.push(reqData);
-    localStorage.setItem("articles", JSON.stringify(parsedArticles));
+    const newArticles = parsedArticles.map((article) => {
+      if (article.id === Number(id)) {
+        return {
+          ...article,
+          title,
+          content,
+        };
+      } else {
+        return article;
+      }
+    });
+    localStorage.setItem("articles", JSON.stringify(newArticles));
 
-    navigate("/board");
+    navigate(`/board/${id}`);
   };
 
   return (
@@ -56,9 +72,9 @@ export default function CreateArticles() {
       </form>
       <div className="article-control-buttons">
         <MyButton
-          bgColor="#2196f3"
-          text="생성"
-          bgHover="#1976d2"
+          bgColor="#4caf50"
+          text="수정"
+          bgHover="#45a049"
           size="sm"
           onClick={handleSubmit}
           disabled={title?.length === 0 || content?.length === 0}
@@ -70,7 +86,7 @@ export default function CreateArticles() {
           bgHover="#e74c3c"
           size="sm"
           onClick={() => {
-            navigate("/board");
+            navigate(`/board/${id}`);
           }}
         />
       </div>
